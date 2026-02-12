@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Brand Colors */
+  --color-brand-bg: #111F1B;
+  --color-brand-primary: #36594E;
+  --color-brand-accent: #FFD747;
+  --color-brand-surface: #1A2925;
+  --color-brand-dark: #0B1412;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Font Families */
+  --font-sans: 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: var(--font-young-serif), 'Young Serif', serif;
+  --font-display: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+
+  /* Custom Animations */
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-blob: blob 7s infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #111F1B;
+  color: #f8fafc;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-young-serif), 'Young Serif', serif;
+}
+
+.font-display {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+}
+
+.font-serif {
+  font-family: var(--font-young-serif), 'Young Serif', serif;
+}
+
+.glass-panel {
+  background: rgba(54, 89, 78, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 215, 71, 0.1);
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(255, 215, 71, 0.4);
+}
+
+::selection {
+  background: #FFD747;
+  color: #111F1B;
 }
