@@ -2,6 +2,7 @@ import React from 'react';
 import { Section } from './ui/Section';
 import { Reveal } from './ui/Reveal';
 import { AboutContent } from '@/lib/types';
+import { convertImageUrl } from '@/lib/imageUtils';
 
 interface AboutProps {
   content: AboutContent;
@@ -16,7 +17,7 @@ export const About: React.FC<AboutProps> = ({ content }) => {
              <div className="aspect-[4/5] rounded-[20px] overflow-hidden relative shadow-2xl border border-[#FFD747]/20 group-hover:border-[#FFD747]/50 transition-colors duration-500">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={content.imageUrl}
+                  src={convertImageUrl(content.imageUrl)}
                   alt={content.imageAlt}
                   className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700"
                 />

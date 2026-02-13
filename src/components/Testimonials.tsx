@@ -4,6 +4,7 @@ import { Section } from './ui/Section';
 import { Reveal } from './ui/Reveal';
 import { Star } from 'lucide-react';
 import { TestimonialsContent } from '@/lib/types';
+import { convertImageUrl } from '@/lib/imageUtils';
 
 interface TestimonialsProps {
   content: TestimonialsContent;
@@ -36,7 +37,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ content }) => {
               <div className="flex items-center gap-4 border-t border-white/5 pt-6">
                 {t.avatarUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={t.avatarUrl} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                  <img src={convertImageUrl(t.avatarUrl)} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
                 ) : (
                   <div className="w-10 h-10 rounded-full bg-brand-primary text-[#FFD747] flex items-center justify-center font-bold text-lg">
                     {t.name.charAt(0)}

@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { NavigationContent } from '@/lib/types';
+import { convertImageUrl } from '@/lib/imageUtils';
 
 interface NavigationProps {
   content: NavigationContent;
@@ -23,7 +24,7 @@ export const Navigation: React.FC<NavigationProps> = ({ content }) => {
         <div className="flex items-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={content.logoUrl}
+            src={convertImageUrl(content.logoUrl)}
             alt="Mike and Matty"
             className="h-10 w-auto object-contain"
           />

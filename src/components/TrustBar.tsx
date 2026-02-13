@@ -1,5 +1,6 @@
 import React from 'react';
 import { TrustBarContent } from '@/lib/types';
+import { convertImageUrl } from '@/lib/imageUtils';
 
 interface TrustBarProps {
   content: TrustBarContent;
@@ -18,7 +19,7 @@ export const TrustBar: React.FC<TrustBarProps> = ({ content }) => {
               return (
                 <div key={i} className="h-6 flex items-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={partner.logoUrl} alt={partner.name} className="h-full object-contain brightness-0 invert" />
+                  <img src={convertImageUrl(partner.logoUrl!)} alt={partner.name} className="h-full object-contain brightness-0 invert" />
                 </div>
               );
             }
@@ -26,7 +27,7 @@ export const TrustBar: React.FC<TrustBarProps> = ({ content }) => {
               return (
                 <div key={i} className="flex items-center gap-2">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={partner.logoUrl} alt={partner.name} className="h-8 w-8 object-contain brightness-0 invert" />
+                  <img src={convertImageUrl(partner.logoUrl!)} alt={partner.name} className="h-8 w-8 object-contain brightness-0 invert" />
                   <span className="font-sans font-medium text-xl text-white">{partner.name}</span>
                 </div>
               );

@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import { FooterContent } from '@/lib/types';
+import { convertImageUrl } from '@/lib/imageUtils';
 
 interface FooterProps {
   content: FooterContent;
@@ -13,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ content }) => {
         <div className="mb-4 md:mb-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={content.logoUrl}
+            src={convertImageUrl(content.logoUrl)}
             alt="Mike and Matty"
             className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity"
           />

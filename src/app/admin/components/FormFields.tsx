@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef } from "react";
+import { convertImageUrl, isGoogleDriveUrl } from "@/lib/imageUtils";
 
 interface InputProps {
   label: string;
@@ -60,20 +61,41 @@ interface ImageUploadProps {
 export function AdminImageUpload({ label, value, onChange }: ImageUploadProps) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   const handleUpload = async (file: File) => {
     setUploading(true);
+    setError(null);
     try {
       const formData = new FormData();
       formData.append("file", file);
       const res = await fetch("/api/upload", { method: "POST", body: formData });
       const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Upload failed");
+        return;
+      }
       if (data.url) onChange(data.url);
     } catch (err) {
       console.error("Upload failed:", err);
+      setError("Upload failed. Check your connection and try again.");
+    } finally {
+      setUploading(false);
     }
-    setUploading(false);
   };
+
+  const handleUrlChange = (input: string) => {
+    setError(null);
+    // Auto-convert Google Drive links to direct image URLs
+    if (isGoogleDriveUrl(input)) {
+      onChange(convertImageUrl(input));
+    } else {
+      onChange(input);
+    }
+  };
+
+  // Use converted URL for preview
+  const previewUrl = convertImageUrl(value);
 
   return (
     <div className="mb-4">
@@ -85,11 +107,11 @@ export function AdminImageUpload({ label, value, onChange }: ImageUploadProps) {
           <input
             type="text"
             value={value}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder="Image URL"
+            onChange={(e) => handleUrlChange(e.target.value)}
+            placeholder="Image URL or Google Drive link"
             className="w-full bg-brand-bg border border-brand-primary/30 rounded-[10px] px-4 py-2.5 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-[#FFD747] transition-colors"
           />
-          <div className="mt-2 flex gap-2">
+          <div className="mt-2 flex items-center gap-3">
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
@@ -98,7 +120,13 @@ export function AdminImageUpload({ label, value, onChange }: ImageUploadProps) {
             >
               {uploading ? "Uploading..." : "Upload Image"}
             </button>
+            <span className="text-[10px] text-slate-600">
+              Supports direct URLs, Google Drive links, or file upload
+            </span>
           </div>
+          {error && (
+            <p className="mt-1.5 text-xs text-red-400">{error}</p>
+          )}
           <input
             ref={fileRef}
             type="file"
@@ -110,10 +138,10 @@ export function AdminImageUpload({ label, value, onChange }: ImageUploadProps) {
             }}
           />
         </div>
-        {value && (
+        {previewUrl && (
           <div className="w-20 h-20 rounded-lg overflow-hidden border border-white/10 shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={value} alt="Preview" className="w-full h-full object-cover" />
+            <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
           </div>
         )}
       </div>
