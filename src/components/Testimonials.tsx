@@ -1,16 +1,19 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { Section } from './ui/Section';
 import { Reveal } from './ui/Reveal';
 import { Star } from 'lucide-react';
 import { TestimonialsContent } from '@/lib/types';
 import { convertImageUrl } from '@/lib/imageUtils';
+import { ImageLightbox, LightboxTrigger } from './ui/ImageLightbox';
 
 interface TestimonialsProps {
   content: TestimonialsContent;
 }
 
 export const Testimonials: React.FC<TestimonialsProps> = ({ content }) => {
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+
   return (
     <Section>
       <Reveal>
@@ -24,25 +27,34 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ content }) => {
         {content.items.map((t, i) => (
           <Reveal key={i} delay={i * 0.15}>
             <div className="space-y-4">
-              {/* Standalone framed image — separate from the card */}
+              {/* Standalone framed image — click to enlarge */}
               {t.imageUrl && (
-                <div className="group/img relative">
-                  <div className="rounded-[16px] overflow-hidden shadow-2xl border border-[#FFD747]/20 hover:border-[#FFD747]/50 transition-colors duration-500 bg-brand-bg">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={convertImageUrl(t.imageUrl)}
-                      alt={`Result from ${t.name}`}
-                      className="w-full h-auto object-contain grayscale contrast-110 group-hover/img:grayscale-0 transition-all duration-700"
-                    />
+                <LightboxTrigger
+                  onClick={() =>
+                    setLightbox({
+                      src: convertImageUrl(t.imageUrl!),
+                      alt: `Result from ${t.name}`,
+                    })
+                  }
+                >
+                  <div className="group/img relative">
+                    <div className="rounded-[16px] overflow-hidden shadow-2xl border border-[#FFD747]/20 hover:border-[#FFD747]/50 transition-colors duration-500 bg-brand-bg">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={convertImageUrl(t.imageUrl)}
+                        alt={`Result from ${t.name}`}
+                        className="w-full h-auto object-contain grayscale contrast-110 group-hover/img:grayscale-0 transition-all duration-700"
+                      />
+                    </div>
+                    <div className="absolute top-3 right-3 z-10">
+                      <span className="inline-block px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-sm text-[#FFD747] text-[10px] font-bold font-display uppercase tracking-wider border border-[#FFD747]/20">
+                        Real Result
+                      </span>
+                    </div>
+                    {/* Offset border decoration */}
+                    <div className="absolute -bottom-2 -right-2 w-full h-full border border-[#FFD747]/10 rounded-[16px] -z-10 translate-x-2 translate-y-2"></div>
                   </div>
-                  <div className="absolute top-3 right-3 z-10">
-                    <span className="inline-block px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-sm text-[#FFD747] text-[10px] font-bold font-display uppercase tracking-wider border border-[#FFD747]/20">
-                      Real Result
-                    </span>
-                  </div>
-                  {/* Offset border decoration like the About section */}
-                  <div className="absolute -bottom-2 -right-2 w-full h-full border border-[#FFD747]/10 rounded-[16px] -z-10 translate-x-2 translate-y-2"></div>
-                </div>
+                </LightboxTrigger>
               )}
 
               {/* Quote card */}
@@ -76,6 +88,16 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ content }) => {
           </Reveal>
         ))}
       </div>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <ImageLightbox
+          src={lightbox.src}
+          alt={lightbox.alt}
+          isOpen={true}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </Section>
   );
 };
