@@ -78,6 +78,7 @@ export interface TestimonialsContent {
     role: string;
     quote: string;
     avatarUrl?: string;
+    imageUrl?: string;
   }>;
 }
 

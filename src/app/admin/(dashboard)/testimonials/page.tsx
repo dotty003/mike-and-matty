@@ -51,6 +51,7 @@ export default function EditTestimonials() {
               <AdminInput label="Name" value={item.name} onChange={(v) => updateItem(i, "name", v)} />
               <AdminInput label="Role" value={item.role} onChange={(v) => updateItem(i, "role", v)} />
               <AdminTextarea label="Quote" value={item.quote} onChange={(v) => updateItem(i, "quote", v)} rows={3} />
+              <AdminImageUpload label="Screenshot / Result Photo (optional)" value={item.imageUrl || ""} onChange={(v) => updateItem(i, "imageUrl", v)} />
               <AdminImageUpload label="Avatar (optional)" value={item.avatarUrl || ""} onChange={(v) => updateItem(i, "avatarUrl", v)} />
             </div>
           ))}
