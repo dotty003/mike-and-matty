@@ -34,6 +34,12 @@ export interface HeroContent {
 
 export interface TrustBarContent {
   label: string;
+  youtubeChannel?: {
+    channelUrl: string;
+    photoUrl: string;
+    channelName: string;
+    subscriberCount: string;
+  };
   partners: Array<{
     name: string;
     logoUrl?: string;

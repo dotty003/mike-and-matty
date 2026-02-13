@@ -1,7 +1,7 @@
 "use client";
 import { useAdmin } from "../../components/AdminContext";
-import { AdminInput } from "../../components/FormFields";
-import { Trash2, Plus } from "lucide-react";
+import { AdminInput, AdminImageUpload } from "../../components/FormFields";
+import { Trash2, Plus, Youtube } from "lucide-react";
 
 export default function EditTrustBar() {
   const { content, loading, updateSection } = useAdmin();
@@ -11,6 +11,14 @@ export default function EditTrustBar() {
   }
 
   const trustBar = content.trustBar;
+
+  const updateYouTubeChannel = (field: string, value: string) => {
+    const channel = trustBar.youtubeChannel || { channelUrl: "", photoUrl: "", channelName: "", subscriberCount: "" };
+    updateSection("trustBar", {
+      ...trustBar,
+      youtubeChannel: { ...channel, [field]: value },
+    });
+  };
 
   const updatePartner = (index: number, field: string, value: string) => {
     const partners = [...trustBar.partners];
@@ -30,6 +38,8 @@ export default function EditTrustBar() {
     updateSection("trustBar", { ...trustBar, partners });
   };
 
+  const yt = trustBar.youtubeChannel;
+
   return (
     <div>
       <h1 className="text-2xl font-serif text-white mb-8">Edit Trust Bar</h1>
@@ -37,6 +47,40 @@ export default function EditTrustBar() {
       <div className="max-w-2xl space-y-6">
         <AdminInput label="Section Label" value={trustBar.label} onChange={(v) => updateSection("trustBar", { ...trustBar, label: v })} />
 
+        {/* YouTube Channel */}
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <Youtube className="w-4 h-4 text-red-500" />
+            <label className="block text-xs font-display text-slate-400 uppercase tracking-wider">YouTube Channel</label>
+          </div>
+          <div className="bg-brand-bg p-4 rounded-[10px] border border-white/5 space-y-1">
+            <AdminInput
+              label="Channel URL"
+              value={yt?.channelUrl || ""}
+              onChange={(v) => updateYouTubeChannel("channelUrl", v)}
+              placeholder="https://youtube.com/@channelname"
+            />
+            <AdminInput
+              label="Channel Name"
+              value={yt?.channelName || ""}
+              onChange={(v) => updateYouTubeChannel("channelName", v)}
+              placeholder="Mike & Matty"
+            />
+            <AdminImageUpload
+              label="Channel Photo"
+              value={yt?.photoUrl || ""}
+              onChange={(v) => updateYouTubeChannel("photoUrl", v)}
+            />
+            <AdminInput
+              label="Subscriber Count"
+              value={yt?.subscriberCount || ""}
+              onChange={(v) => updateYouTubeChannel("subscriberCount", v)}
+              placeholder="125K subscribers"
+            />
+          </div>
+        </div>
+
+        {/* Partners */}
         <div>
           <label className="block text-xs font-display text-slate-400 mb-3 uppercase tracking-wider">Partners</label>
           <div className="space-y-4">
