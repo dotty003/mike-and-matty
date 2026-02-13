@@ -23,29 +23,30 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ content }) => {
       <div className="grid md:grid-cols-3 gap-8">
         {content.items.map((t, i) => (
           <Reveal key={i} delay={i * 0.15}>
-            <div className="bg-brand-surface rounded-[10px] relative group hover:bg-brand-surface/80 transition-colors border border-transparent hover:border-[#FFD747]/30 h-full flex flex-col overflow-hidden">
-              {/* Screenshot / Result Photo */}
+            <div className="space-y-4">
+              {/* Standalone framed image — separate from the card */}
               {t.imageUrl && (
-                <div className="relative overflow-hidden">
-                  <div className="aspect-[4/3] relative">
+                <div className="group/img relative">
+                  <div className="rounded-[16px] overflow-hidden shadow-2xl border border-[#FFD747]/20 hover:border-[#FFD747]/50 transition-colors duration-500 bg-brand-bg">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={convertImageUrl(t.imageUrl)}
                       alt={`Result from ${t.name}`}
-                      className="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                      className="w-full h-auto object-contain grayscale contrast-110 group-hover/img:grayscale-0 transition-all duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-surface via-brand-surface/20 to-transparent"></div>
-                    <div className="absolute top-3 right-3">
-                      <span className="inline-block px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-sm text-[#FFD747] text-[10px] font-bold font-display uppercase tracking-wider border border-[#FFD747]/20">
-                        Real Result
-                      </span>
-                    </div>
                   </div>
+                  <div className="absolute top-3 right-3 z-10">
+                    <span className="inline-block px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-sm text-[#FFD747] text-[10px] font-bold font-display uppercase tracking-wider border border-[#FFD747]/20">
+                      Real Result
+                    </span>
+                  </div>
+                  {/* Offset border decoration like the About section */}
+                  <div className="absolute -bottom-2 -right-2 w-full h-full border border-[#FFD747]/10 rounded-[16px] -z-10 translate-x-2 translate-y-2"></div>
                 </div>
               )}
 
-              {/* Card content */}
-              <div className={`p-10 flex flex-col flex-1 ${t.imageUrl ? 'pt-4' : ''}`}>
+              {/* Quote card */}
+              <div className="bg-brand-surface p-10 rounded-[10px] relative group hover:bg-brand-surface/80 transition-colors border border-transparent hover:border-[#FFD747]/30 h-full flex flex-col">
                 <div className="absolute top-8 right-8 text-6xl font-serif text-brand-primary opacity-20 group-hover:opacity-40 leading-none">&quot;</div>
 
                 <div className="flex gap-1.5 mb-6">
