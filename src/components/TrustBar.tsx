@@ -7,8 +7,9 @@ interface TrustBarProps {
 }
 
 export const TrustBar: React.FC<TrustBarProps> = ({ content }) => {
-  const yt = content.youtubeChannel;
-  const hasYouTube = yt && yt.photoUrl && yt.subscriberCount;
+  const channels = (content.youtubeChannels || []).filter(
+    (ch) => ch.photoUrl && ch.subscriberCount
+  );
 
   return (
     <div className="w-full border-y border-white/5 bg-black/20 backdrop-blur-sm overflow-hidden py-8">
@@ -18,9 +19,10 @@ export const TrustBar: React.FC<TrustBarProps> = ({ content }) => {
         </p>
 
         <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20">
-          {/* YouTube Channel Stats */}
-          {hasYouTube && (
+          {/* YouTube Channels */}
+          {channels.map((yt, i) => (
             <a
+              key={`yt-${i}`}
               href={yt.channelUrl || "#"}
               target="_blank"
               rel="noopener noreferrer"
@@ -43,10 +45,10 @@ export const TrustBar: React.FC<TrustBarProps> = ({ content }) => {
                 </p>
               </div>
             </a>
-          )}
+          ))}
 
-          {/* Divider between YouTube and partners */}
-          {hasYouTube && content.partners.length > 0 && (
+          {/* Divider between YouTube channels and partners */}
+          {channels.length > 0 && content.partners.length > 0 && (
             <div className="h-10 w-px bg-white/10 hidden md:block"></div>
           )}
 

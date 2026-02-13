@@ -17,7 +17,16 @@ export async function getContent(): Promise<SiteContent> {
     if (!redis) return defaultContent;
 
     const content = await redis.get<SiteContent>(CONTENT_KEY);
-    if (content) return content;
+    if (content) {
+      // Migrate old singular youtubeChannel to youtubeChannels array
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const tb = content.trustBar as any;
+      if (tb.youtubeChannel && !tb.youtubeChannels) {
+        content.trustBar.youtubeChannels = [tb.youtubeChannel];
+        delete tb.youtubeChannel;
+      }
+      return content;
+    }
   } catch (error) {
     console.error("Failed to fetch from KV, using default content:", error);
   }
