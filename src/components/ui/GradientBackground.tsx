@@ -38,7 +38,7 @@ export const GradientBackground: React.FC = () => {
   return (
     <div className="fixed inset-0 w-full h-full -z-50 overflow-hidden bg-brand-bg">
       <div className="absolute top-0 left-0 w-[90vw] h-[90vw] bg-brand-primary mix-blend-screen filter blur-[100px] opacity-40 animate-blob rounded-full" />
-      <div className="absolute top-0 right-0 w-[80vw] h-[80vw] bg-[#FFD747] mix-blend-screen filter blur-[130px] opacity-[0.06] animate-blob rounded-full" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-0 right-0 w-[80vw] h-[80vw] bg-brand-accent mix-blend-screen filter blur-[130px] opacity-[0.06] animate-blob rounded-full" style={{ animationDelay: '2s' }} />
       <div className="absolute -bottom-40 left-10 w-[90vw] h-[90vw] bg-brand-primary mix-blend-screen filter blur-[100px] opacity-40 animate-blob rounded-full" style={{ animationDelay: '4s' }} />
 
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-brand-primary mix-blend-normal filter blur-[150px] opacity-20 pointer-events-none" />

@@ -17,12 +17,12 @@ export const Booking: React.FC<BookingProps> = ({ content }) => {
         <Reveal>
           <div className="bg-brand-surface p-8 md:p-16 rounded-[30px] border border-white/5 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#FFD747]/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-accent/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2"></div>
 
             <div className="relative z-10">
               <h2 className="text-4xl md:text-6xl mb-6 text-white">
                 {content.title} <br />
-                <span className="text-[#FFD747] italic">{content.titleAccent}</span>
+                <span className="text-brand-accent italic">{content.titleAccent}</span>
               </h2>
 
               <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto font-light">
@@ -32,7 +32,7 @@ export const Booking: React.FC<BookingProps> = ({ content }) => {
               <div className="bg-brand-bg p-6 md:p-8 rounded-[20px] border border-white/10 mb-8 max-w-lg mx-auto shadow-2xl">
                 <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-6">
                   <div className="flex items-center gap-4">
-                     <div className="w-14 h-14 rounded-[12px] bg-brand-primary/20 flex items-center justify-center text-[#FFD747]">
+                     <div className="w-14 h-14 rounded-[12px] bg-brand-primary/20 flex items-center justify-center text-brand-accent">
                         <Calendar className="w-7 h-7" />
                      </div>
                      <div className="text-left">
@@ -41,7 +41,7 @@ export const Booking: React.FC<BookingProps> = ({ content }) => {
                      </div>
                   </div>
                   <div className="hidden sm:block text-right">
-                    <span className="inline-block px-3 py-1 rounded-full bg-[#FFD747]/10 text-[#FFD747] text-xs font-bold uppercase tracking-wider">
+                    <span className="inline-block px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-xs font-bold uppercase tracking-wider">
                       Available
                     </span>
                   </div>

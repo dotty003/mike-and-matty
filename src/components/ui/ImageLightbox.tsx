@@ -41,9 +41,9 @@ export function ImageLightbox({ src, alt, isOpen, onClose }: ImageLightboxProps)
       {/* Close button */}
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 z-10 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 hover:border-[#FFD747]/50 transition-all group"
+        className="absolute top-6 right-6 z-10 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 hover:border-brand-accent/50 transition-all group"
       >
-        <X className="w-5 h-5 group-hover:text-[#FFD747] transition-colors" />
+        <X className="w-5 h-5 group-hover:text-brand-accent transition-colors" />
       </button>
 
       {/* Hint text */}
@@ -56,7 +56,7 @@ export function ImageLightbox({ src, alt, isOpen, onClose }: ImageLightboxProps)
         className="relative max-w-5xl max-h-[85vh] lightbox-content"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="rounded-[20px] overflow-hidden shadow-[0_0_80px_rgba(255,215,71,0.15)] border border-[#FFD747]/30 bg-brand-bg">
+        <div className="rounded-[20px] overflow-hidden shadow-[0_0_80px_rgba(255,215,71,0.15)] border border-brand-accent/30 bg-brand-bg">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={src}
@@ -92,8 +92,8 @@ export function LightboxTrigger({
       {children}
       {/* Zoom hint overlay */}
       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/zoom:opacity-100 transition-opacity duration-300 pointer-events-none rounded-[16px]">
-        <div className="w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-[#FFD747]/40 flex items-center justify-center shadow-lg">
-          <ZoomIn className="w-5 h-5 text-[#FFD747]" />
+        <div className="w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-brand-accent/40 flex items-center justify-center shadow-lg">
+          <ZoomIn className="w-5 h-5 text-brand-accent" />
         </div>
       </div>
     </div>

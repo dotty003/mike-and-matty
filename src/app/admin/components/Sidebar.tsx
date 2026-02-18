@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Layout, Type, Users, Image, MessageSquare, HelpCircle, Calendar, Globe, Footprints, Handshake } from "lucide-react";
+import { Layout, Type, Users, Image, MessageSquare, HelpCircle, Calendar, Globe, Footprints, Handshake, Palette } from "lucide-react";
 
 const navItems = [
   { href: "/admin/hero", label: "Hero", icon: Layout },
@@ -14,6 +14,7 @@ const navItems = [
   { href: "/admin/booking", label: "Booking", icon: Calendar },
   { href: "/admin/footer", label: "Footer", icon: Footprints },
   { href: "/admin/global", label: "Global", icon: Globe },
+  { href: "/admin/visual-branding", label: "Visual Branding", icon: Palette },
 ];
 
 export function Sidebar() {
@@ -29,7 +30,7 @@ export function Sidebar() {
     <aside className="w-64 min-h-screen bg-brand-bg border-r border-white/5 flex flex-col">
       <div className="p-6 border-b border-white/5">
         <Link href="/" target="_blank" className="flex items-center gap-3 group">
-          <div className="w-8 h-8 rounded-lg bg-[#FFD747] flex items-center justify-center text-brand-bg font-bold text-sm">
+          <div className="w-8 h-8 rounded-lg bg-brand-accent flex items-center justify-center text-brand-bg font-bold text-sm">
             M
           </div>
           <div>
@@ -49,7 +50,7 @@ export function Sidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-display transition-colors ${
                 isActive
-                  ? "bg-[#FFD747]/10 text-[#FFD747] border-l-2 border-[#FFD747]"
+                  ? "bg-brand-accent/10 text-brand-accent border-l-2 border-brand-accent"
                   : "text-slate-400 hover:text-white hover:bg-white/5"
               }`}
             >

@@ -33,7 +33,7 @@ export const Navigation: React.FC<NavigationProps> = ({ content }) => {
           onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
           className={`px-6 py-2.5 rounded-[10px] text-sm font-bold font-display uppercase tracking-wide transition-all border ${
             scrolled
-              ? 'bg-[#FFD747] text-brand-bg border-[#FFD747] hover:bg-[#ffe175]'
+              ? 'bg-brand-accent text-brand-bg border-brand-accent hover:bg-brand-accent-hover'
               : 'bg-white/5 text-white border-white/10 hover:bg-white/10'
           }`}
         >

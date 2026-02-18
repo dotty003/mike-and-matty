@@ -10,7 +10,7 @@ interface SectionProps {
 export const Section: React.FC<SectionProps> = ({ children, className = "", id, bg = 'transparent' }) => {
   const bgClass =
     bg === 'glass' ? 'glass-panel' :
-    bg === 'dark' ? 'bg-[#0B1412]' :
+    bg === 'dark' ? 'bg-brand-dark' :
     bg === 'brand' ? 'bg-brand-primary/10' :
     'bg-transparent';
 

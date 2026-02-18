@@ -9,6 +9,24 @@ export interface SiteContent {
   faq: FAQContent;
   booking: BookingContent;
   footer: FooterContent;
+  branding?: BrandingContent;
+}
+
+export interface BrandingContent {
+  colors: {
+    background: string;
+    surface: string;
+    primary: string;
+    accent: string;
+    accentHover: string;
+    dark: string;
+  };
+  fonts: {
+    heading: string;
+    body: string;
+    display: string;
+  };
+  borderRadius: string;
 }
 
 export interface GlobalContent {

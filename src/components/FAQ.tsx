@@ -19,12 +19,12 @@ const AccordionItem: React.FC<{ item: { question: string; answer: string }, dela
           onClick={() => setIsOpen(!isOpen)}
           className="w-full py-6 flex items-start justify-between text-left group"
         >
-          <span className={`text-xl md:text-2xl font-serif pr-8 transition-colors duration-300 ${isOpen ? 'text-[#FFD747]' : 'text-slate-200 group-hover:text-white'}`}>
+          <span className={`text-xl md:text-2xl font-serif pr-8 transition-colors duration-300 ${isOpen ? 'text-brand-accent' : 'text-slate-200 group-hover:text-white'}`}>
             {item.question}
           </span>
           <span className={`mt-1 flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
             {isOpen ? (
-              <Minus className="w-5 h-5 text-[#FFD747]" />
+              <Minus className="w-5 h-5 text-brand-accent" />
             ) : (
               <Plus className="w-5 h-5 text-slate-400 group-hover:text-white" />
             )}

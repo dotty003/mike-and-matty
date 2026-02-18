@@ -5,6 +5,7 @@
   --color-brand-bg: #111F1B;
   --color-brand-primary: #36594E;
   --color-brand-accent: #FFD747;
+  --color-brand-accent-hover: #ffe175;
   --color-brand-surface: #1A2925;
   --color-brand-dark: #0B1412;
 
@@ -32,37 +33,37 @@
 }
 
 body {
-  background-color: #111F1B;
+  background-color: var(--color-brand-bg);
   color: #f8fafc;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-young-serif), 'Young Serif', serif;
+  font-family: var(--font-serif);
 }
 
 .font-display {
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
 }
 
 .font-serif {
-  font-family: var(--font-young-serif), 'Young Serif', serif;
+  font-family: var(--font-serif);
 }
 
 .glass-panel {
-  background: rgba(54, 89, 78, 0.25);
+  background: color-mix(in srgb, var(--color-brand-primary) 25%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 215, 71, 0.1);
+  border: 1px solid color-mix(in srgb, var(--color-brand-accent) 10%, transparent);
 }
 
 .glow-text {
-  text-shadow: 0 0 20px rgba(255, 215, 71, 0.4);
+  text-shadow: 0 0 20px color-mix(in srgb, var(--color-brand-accent) 40%, transparent);
 }
 
 ::selection {
-  background: #FFD747;
-  color: #111F1B;
+  background: var(--color-brand-accent);
+  color: var(--color-brand-bg);
 }
 
 /* Lightbox animations */

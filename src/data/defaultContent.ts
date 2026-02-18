@@ -1,4 +1,21 @@
-import { SiteContent } from "@/lib/types";
+import { SiteContent, BrandingContent } from "@/lib/types";
+
+export const defaultBranding: BrandingContent = {
+  colors: {
+    background: "#111F1B",
+    surface: "#1A2925",
+    primary: "#36594E",
+    accent: "#FFD747",
+    accentHover: "#ffe175",
+    dark: "#0B1412",
+  },
+  fonts: {
+    heading: "Young Serif",
+    body: "Helvetica Neue",
+    display: "Space Grotesk",
+  },
+  borderRadius: "10",
+};
 
 export const defaultContent: SiteContent = {
   global: {

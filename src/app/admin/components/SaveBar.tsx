@@ -14,7 +14,7 @@ export function SaveBar() {
       <button
         onClick={save}
         disabled={saving}
-        className="bg-[#FFD747] text-brand-bg font-bold font-display px-8 py-2.5 rounded-[10px] hover:bg-[#ffe175] transition-colors disabled:opacity-50 text-sm"
+        className="bg-brand-accent text-brand-bg font-bold font-display px-8 py-2.5 rounded-[10px] hover:bg-brand-accent-hover transition-colors disabled:opacity-50 text-sm"
       >
         {saving ? "Saving..." : "Save Changes"}
       </button>
