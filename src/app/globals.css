@@ -72,6 +72,18 @@ html.cursor-glow * {
   cursor: none !important;
 }
 
+/* Pulse Ring cursor blink animation (box-shadow avoids conflicting with JS transform) */
+@keyframes cursor-ring-blink {
+  0%, 100% {
+    box-shadow: 0 0 0 0px color-mix(in srgb, var(--color-brand-accent) 35%, transparent);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--color-brand-accent) 0%, transparent);
+    opacity: 0.45;
+  }
+}
+
 /* ─── Animation Presets ─────────────────────────────────────────────────────── */
 
 /* lift — cards and buttons rise with spring easing */

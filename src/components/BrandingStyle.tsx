@@ -57,12 +57,12 @@ export function BrandingStyle({ branding }: { branding?: BrandingContent }) {
   `;
 
   const preset = b.interactions?.animationPreset ?? 'smooth';
-  const cursorEnabled = b.interactions?.cursorEnabled ?? false;
+  const cursorActive = (b.interactions?.cursorStyle ?? 'off') !== 'off';
 
   // Runs synchronously before first paint — no flash of wrong state
   const initScript = `
     document.documentElement.setAttribute('data-anim', '${preset}');
-    document.documentElement.classList.${cursorEnabled ? 'add' : 'remove'}('cursor-glow');
+    document.documentElement.classList.${cursorActive ? 'add' : 'remove'}('cursor-glow');
   `.trim();
 
   return (

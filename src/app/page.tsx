@@ -20,12 +20,14 @@ export default async function Home() {
   return (
     <div className="min-h-screen text-slate-200 relative bg-brand-bg">
       <BrandingStyle branding={content.branding} />
-      {content.branding?.interactions?.cursorEnabled && (
-        <CustomCursor
-          size={content.branding.interactions.cursorSize ?? "md"}
-          intensity={content.branding.interactions.cursorIntensity ?? 50}
-        />
-      )}
+      {content.branding?.interactions?.cursorStyle &&
+        content.branding.interactions.cursorStyle !== "off" && (
+          <CustomCursor
+            style={content.branding.interactions.cursorStyle}
+            size={content.branding.interactions.cursorSize ?? "md"}
+            intensity={content.branding.interactions.cursorIntensity ?? 50}
+          />
+        )}
       <GradientBackground />
       <Navigation content={content.navigation} />
       <main className="relative z-10">

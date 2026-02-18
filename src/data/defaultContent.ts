@@ -17,7 +17,7 @@ export const defaultBranding: BrandingContent = {
   borderRadius: "10",
   interactions: {
     animationPreset: "smooth",
-    cursorEnabled: false,
+    cursorStyle: "off",
     cursorSize: "md",
     cursorIntensity: 50,
   },

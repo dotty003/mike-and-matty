@@ -45,6 +45,15 @@ const ANIMATION_PRESETS = [
   { value: "none", label: "None", icon: "♿", description: "Zero animation. Full accessibility mode." },
 ] as const;
 
+const CURSOR_PRESETS = [
+  { value: "off",        label: "None",        icon: "🖱️",  description: "Default browser cursor. No customization." },
+  { value: "glow",       label: "Glow Orb",    icon: "✨",  description: "Soft blurred orb in your accent color, gliding behind the cursor." },
+  { value: "ring",       label: "Pulse Ring",  icon: "⭕",  description: "Accent-colored circle outline that blinks rhythmically." },
+  { value: "colorshift", label: "Color Shift", icon: "🎨",  description: "Small orb that continuously cycles through your brand hues." },
+  { value: "trail",      label: "Dot Trail",   icon: "💫",  description: "Leaves a fading chain of accent dots behind every move." },
+  { value: "magnetic",   label: "Magnetic",    icon: "🔵",  description: "Snappy dot + a larger ring that lags with a magnetic pull." },
+] as const;
+
 const CURSOR_SIZES = [
   { label: "Small", value: "sm" },
   { label: "Medium", value: "md" },
@@ -332,19 +341,32 @@ export default function EditVisualBranding() {
           {/* Custom Cursor */}
           <div className="bg-brand-bg p-5 rounded-[10px] border border-white/5 space-y-5">
             <div>
-              <label className="block text-xs font-display text-slate-400 mb-1 uppercase tracking-wider">Glow Cursor</label>
-              <p className="text-xs text-slate-600 mb-3">Replace the default cursor with an accent-colored glow orb.</p>
-              <button
-                onClick={() => updateInteractions("cursorEnabled", !interactions.cursorEnabled)}
-                className={`relative w-12 h-6 rounded-full transition-all ${interactions.cursorEnabled ? "bg-brand-accent" : "bg-white/10"}`}
-              >
-                <span
-                  className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all ${interactions.cursorEnabled ? "left-7" : "left-1"}`}
-                />
-              </button>
+              <label className="block text-xs font-display text-slate-400 mb-1 uppercase tracking-wider">Cursor Style</label>
+              <p className="text-xs text-slate-600 mb-4">Pick a style or leave as None to keep the default cursor.</p>
+              <div className="grid grid-cols-2 gap-3">
+                {CURSOR_PRESETS.map((preset) => (
+                  <button
+                    key={preset.value}
+                    onClick={() => updateInteractions("cursorStyle", preset.value)}
+                    className={`text-left p-4 rounded-[10px] border transition-all ${
+                      interactions.cursorStyle === preset.value
+                        ? "border-brand-accent bg-brand-accent/10"
+                        : "border-white/10 hover:border-white/20"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-lg">{preset.icon}</span>
+                      <span className={`text-sm font-display font-semibold ${interactions.cursorStyle === preset.value ? "text-brand-accent" : "text-white"}`}>
+                        {preset.label}
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 leading-snug">{preset.description}</p>
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {interactions.cursorEnabled && (
+            {interactions.cursorStyle !== "off" && (
               <>
                 <div className="border-t border-white/5 pt-5">
                   <label className="block text-xs font-display text-slate-400 mb-3 uppercase tracking-wider">Cursor Size</label>
