@@ -27,6 +27,12 @@ export interface BrandingContent {
     display: string;
   };
   borderRadius: string;
+  interactions?: {
+    animationPreset: 'smooth' | 'lift' | 'energetic' | 'minimal' | 'none';
+    cursorEnabled: boolean;
+    cursorSize: 'sm' | 'md' | 'lg';
+    cursorIntensity: number;
+  };
 }
 
 export interface GlobalContent {

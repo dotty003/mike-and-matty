@@ -37,6 +37,20 @@ const RADIUS_OPTIONS = [
   { label: "Extra Round", value: "24" },
 ];
 
+const ANIMATION_PRESETS = [
+  { value: "smooth", label: "Smooth", icon: "✨", description: "Clean transitions, no movement. Tailwind defaults." },
+  { value: "lift", label: "Lift", icon: "🪄", description: "Cards and buttons rise up when hovered. Elegant depth." },
+  { value: "energetic", label: "Energetic", icon: "⚡", description: "Spring/bouncy easing. Playful and dynamic." },
+  { value: "minimal", label: "Minimal", icon: "🎯", description: "Instant transitions, ultra-clean. No-nonsense." },
+  { value: "none", label: "None", icon: "♿", description: "Zero animation. Full accessibility mode." },
+] as const;
+
+const CURSOR_SIZES = [
+  { label: "Small", value: "sm" },
+  { label: "Medium", value: "md" },
+  { label: "Large", value: "lg" },
+] as const;
+
 function ColorField({ label, value, onChange, description }: {
   label: string;
   value: string;
@@ -115,6 +129,15 @@ export default function EditVisualBranding() {
 
   const updateRadius = (value: string) => {
     updateSection("branding", { ...branding, borderRadius: value });
+  };
+
+  const interactions = branding.interactions || defaultBranding.interactions!;
+
+  const updateInteractions = (key: string, value: unknown) => {
+    updateSection("branding", {
+      ...branding,
+      interactions: { ...interactions, [key]: value },
+    });
   };
 
   const resetToDefaults = () => {
@@ -263,7 +286,7 @@ export default function EditVisualBranding() {
                   onClick={() => updateRadius(opt.value)}
                   className={`flex-1 py-3 text-xs font-display text-center border transition-all ${
                     branding.borderRadius === opt.value
-                      ? "border-[#FFD747] bg-[#FFD747]/10 text-[#FFD747]"
+                      ? "border-brand-accent bg-brand-accent/10 text-brand-accent"
                       : "border-white/10 text-slate-400 hover:border-white/20 hover:text-white"
                   }`}
                   style={{ borderRadius: `${opt.value}px` }}
@@ -272,6 +295,97 @@ export default function EditVisualBranding() {
                 </button>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Interactions */}
+        <div>
+          <h2 className="text-sm font-display text-slate-300 uppercase tracking-wider mb-4">Interactions</h2>
+
+          {/* Hover Animation Presets */}
+          <div className="bg-brand-bg p-5 rounded-[10px] border border-white/5 mb-4">
+            <label className="block text-xs font-display text-slate-400 mb-1 uppercase tracking-wider">Hover Animation</label>
+            <p className="text-xs text-slate-600 mb-4">Applied globally to cards, buttons, links, and images.</p>
+            <div className="grid grid-cols-2 gap-3">
+              {ANIMATION_PRESETS.map((preset) => (
+                <button
+                  key={preset.value}
+                  onClick={() => updateInteractions("animationPreset", preset.value)}
+                  className={`text-left p-4 rounded-[10px] border transition-all ${
+                    interactions.animationPreset === preset.value
+                      ? "border-brand-accent bg-brand-accent/10"
+                      : "border-white/10 hover:border-white/20"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="text-lg">{preset.icon}</span>
+                    <span className={`text-sm font-display font-semibold ${interactions.animationPreset === preset.value ? "text-brand-accent" : "text-white"}`}>
+                      {preset.label}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 leading-snug">{preset.description}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Custom Cursor */}
+          <div className="bg-brand-bg p-5 rounded-[10px] border border-white/5 space-y-5">
+            <div>
+              <label className="block text-xs font-display text-slate-400 mb-1 uppercase tracking-wider">Glow Cursor</label>
+              <p className="text-xs text-slate-600 mb-3">Replace the default cursor with an accent-colored glow orb.</p>
+              <button
+                onClick={() => updateInteractions("cursorEnabled", !interactions.cursorEnabled)}
+                className={`relative w-12 h-6 rounded-full transition-all ${interactions.cursorEnabled ? "bg-brand-accent" : "bg-white/10"}`}
+              >
+                <span
+                  className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all ${interactions.cursorEnabled ? "left-7" : "left-1"}`}
+                />
+              </button>
+            </div>
+
+            {interactions.cursorEnabled && (
+              <>
+                <div className="border-t border-white/5 pt-5">
+                  <label className="block text-xs font-display text-slate-400 mb-3 uppercase tracking-wider">Cursor Size</label>
+                  <div className="flex gap-3">
+                    {CURSOR_SIZES.map((s) => (
+                      <button
+                        key={s.value}
+                        onClick={() => updateInteractions("cursorSize", s.value)}
+                        className={`flex-1 py-2.5 text-xs font-display border transition-all rounded-[8px] ${
+                          interactions.cursorSize === s.value
+                            ? "border-brand-accent bg-brand-accent/10 text-brand-accent"
+                            : "border-white/10 text-slate-400 hover:border-white/20 hover:text-white"
+                        }`}
+                      >
+                        {s.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <label className="block text-xs font-display text-slate-400 uppercase tracking-wider">Intensity</label>
+                    <span className="text-xs font-display text-brand-accent">{interactions.cursorIntensity}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min={10}
+                    max={100}
+                    step={5}
+                    value={interactions.cursorIntensity}
+                    onChange={(e) => updateInteractions("cursorIntensity", Number(e.target.value))}
+                    className="w-full accent-brand-accent"
+                  />
+                  <div className="flex justify-between text-xs text-slate-600 mt-1">
+                    <span>Subtle</span>
+                    <span>Vivid</span>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

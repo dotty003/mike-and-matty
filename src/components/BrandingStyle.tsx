@@ -56,6 +56,15 @@ export function BrandingStyle({ branding }: { branding?: BrandingContent }) {
     }
   `;
 
+  const preset = b.interactions?.animationPreset ?? 'smooth';
+  const cursorEnabled = b.interactions?.cursorEnabled ?? false;
+
+  // Runs synchronously before first paint — no flash of wrong state
+  const initScript = `
+    document.documentElement.setAttribute('data-anim', '${preset}');
+    document.documentElement.classList.${cursorEnabled ? 'add' : 'remove'}('cursor-glow');
+  `.trim();
+
   return (
     <>
       {fontsUrl && (
@@ -63,6 +72,7 @@ export function BrandingStyle({ branding }: { branding?: BrandingContent }) {
         <link rel="stylesheet" href={fontsUrl} />
       )}
       <style dangerouslySetInnerHTML={{ __html: css }} />
+      <script dangerouslySetInnerHTML={{ __html: initScript }} />
     </>
   );
 }

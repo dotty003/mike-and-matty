@@ -15,6 +15,12 @@ export const defaultBranding: BrandingContent = {
     display: "Space Grotesk",
   },
   borderRadius: "10",
+  interactions: {
+    animationPreset: "smooth",
+    cursorEnabled: false,
+    cursorSize: "md",
+    cursorIntensity: 50,
+  },
 };
 
 export const defaultContent: SiteContent = {

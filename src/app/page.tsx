@@ -9,6 +9,7 @@ import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
 import { GradientBackground } from "@/components/ui/GradientBackground";
 import { BrandingStyle } from "@/components/BrandingStyle";
+import { CustomCursor } from "@/components/CustomCursor";
 import { getContent } from "@/lib/content";
 
 export const revalidate = 60;
@@ -19,6 +20,12 @@ export default async function Home() {
   return (
     <div className="min-h-screen text-slate-200 relative bg-brand-bg">
       <BrandingStyle branding={content.branding} />
+      {content.branding?.interactions?.cursorEnabled && (
+        <CustomCursor
+          size={content.branding.interactions.cursorSize ?? "md"}
+          intensity={content.branding.interactions.cursorIntensity ?? 50}
+        />
+      )}
       <GradientBackground />
       <Navigation content={content.navigation} />
       <main className="relative z-10">
