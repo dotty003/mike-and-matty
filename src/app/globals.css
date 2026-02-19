@@ -72,6 +72,22 @@ html.cursor-glow * {
   cursor: none !important;
 }
 
+/* Glow Pulse cursor — solid circle with expanding glow ripple */
+@keyframes cursor-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0px color-mix(in srgb, var(--color-brand-accent) 55%, transparent),
+      0 0 10px 3px color-mix(in srgb, var(--color-brand-accent) 35%, transparent);
+    opacity: 0.9;
+  }
+  50% {
+    box-shadow:
+      0 0 0 10px color-mix(in srgb, var(--color-brand-accent) 0%, transparent),
+      0 0 28px 8px color-mix(in srgb, var(--color-brand-accent) 55%, transparent);
+    opacity: 1;
+  }
+}
+
 /* Pulse Ring cursor blink animation (box-shadow avoids conflicting with JS transform) */
 @keyframes cursor-ring-blink {
   0%, 100% {

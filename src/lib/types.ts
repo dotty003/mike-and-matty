@@ -29,7 +29,7 @@ export interface BrandingContent {
   borderRadius: string;
   interactions?: {
     animationPreset: 'smooth' | 'lift' | 'energetic' | 'minimal' | 'none';
-    cursorStyle: 'off' | 'glow' | 'ring' | 'colorshift' | 'trail' | 'magnetic';
+    cursorStyle: 'off' | 'glow' | 'ring' | 'colorshift' | 'trail' | 'magnetic' | 'glowpulse';
     cursorSize: 'sm' | 'md' | 'lg';
     cursorIntensity: number;
   };

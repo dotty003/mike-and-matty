@@ -52,6 +52,7 @@ const CURSOR_PRESETS = [
   { value: "colorshift", label: "Color Shift", icon: "🎨",  description: "Small orb that continuously cycles through your brand hues." },
   { value: "trail",      label: "Dot Trail",   icon: "💫",  description: "Leaves a fading chain of accent dots behind every move." },
   { value: "magnetic",   label: "Magnetic",    icon: "🔵",  description: "Snappy dot + a larger ring that lags with a magnetic pull." },
+  { value: "glowpulse",  label: "Glow Pulse",  icon: "🌟",  description: "Solid circle with a pulsing glow ripple in your accent color." },
 ] as const;
 
 const CURSOR_SIZES = [

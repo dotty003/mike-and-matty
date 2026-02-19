@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 
-export type CursorStyle = "glow" | "ring" | "colorshift" | "trail" | "magnetic";
+export type CursorStyle = "glow" | "ring" | "colorshift" | "trail" | "magnetic" | "glowpulse";
 
 interface CustomCursorProps {
   style: CursorStyle;
@@ -107,6 +107,16 @@ export function CustomCursor({ style, size, intensity }: CustomCursorProps) {
         });
       }
 
+      /* ── Glow Pulse ── */
+      if (style === "glowpulse") {
+        const d = Math.round(20 * scale);
+        pos1.current.x = lerp(pos1.current.x, mx, 0.13);
+        pos1.current.y = lerp(pos1.current.y, my, 0.13);
+        if (el1Ref.current) {
+          el1Ref.current.style.transform = `translate(${pos1.current.x - d / 2}px, ${pos1.current.y - d / 2}px)`;
+        }
+      }
+
       /* ── Magnetic ── */
       if (style === "magnetic") {
         const dotD = Math.round(9 * scale);
@@ -182,6 +192,25 @@ export function CustomCursor({ style, size, intensity }: CustomCursorProps) {
           background: "transparent",
           opacity: visible ? opacityFactor * 0.9 : 0,
           animation: "cursor-ring-blink 1.2s ease-in-out infinite",
+        }}
+      />
+    );
+  }
+
+  if (style === "glowpulse") {
+    const d = Math.round(20 * scale);
+    return (
+      <div
+        ref={el1Ref}
+        aria-hidden
+        style={{
+          ...base,
+          width: d,
+          height: d,
+          background: "var(--color-brand-accent)",
+          mixBlendMode: "screen",
+          opacity: visible ? opacityFactor * 0.95 : 0,
+          animation: "cursor-glow-pulse 1.4s ease-in-out infinite",
         }}
       />
     );
