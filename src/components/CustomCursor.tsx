@@ -39,6 +39,47 @@ export function CustomCursor({ style, size, intensity }: CustomCursorProps) {
     visRef.current = visible;
   }, [visible]);
 
+  // Transparent overlays on iframes so mousemove keeps firing + native cursor stays hidden.
+  // On pointerdown the overlay briefly disables itself so the click falls through to the iframe.
+  useEffect(() => {
+    const overlays: HTMLDivElement[] = [];
+
+    const setup = () => {
+      // Remove stale overlays first
+      document.querySelectorAll("[data-cursor-overlay]").forEach((el) => el.remove());
+      overlays.length = 0;
+
+      document.querySelectorAll("iframe").forEach((iframe) => {
+        const parent = iframe.parentElement;
+        if (!parent) return;
+        if (getComputedStyle(parent).position === "static") {
+          parent.style.position = "relative";
+        }
+        const ov = document.createElement("div");
+        ov.setAttribute("data-cursor-overlay", "true");
+        ov.style.cssText = "position:absolute;inset:0;z-index:999;cursor:none;";
+        ov.addEventListener("mousemove", (e) => {
+          mouseRef.current = { x: e.clientX, y: e.clientY };
+          setVisible(true);
+        });
+        ov.addEventListener("mouseleave", () => setVisible(false));
+        ov.addEventListener("pointerdown", () => {
+          ov.style.pointerEvents = "none";
+          setTimeout(() => { ov.style.pointerEvents = "auto"; }, 300);
+        });
+        parent.appendChild(ov);
+        overlays.push(ov);
+      });
+    };
+
+    // Small delay so iframes have rendered into the DOM
+    const t = setTimeout(setup, 500);
+    return () => {
+      clearTimeout(t);
+      overlays.forEach((o) => o.remove());
+    };
+  }, [style]);
+
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
