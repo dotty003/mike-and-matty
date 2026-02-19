@@ -63,9 +63,14 @@ export function CustomCursor({ style, size, intensity }: CustomCursorProps) {
           setVisible(true);
         });
         ov.addEventListener("mouseleave", () => setVisible(false));
-        ov.addEventListener("pointerdown", () => {
+        ov.addEventListener("pointerdown", (e) => {
+          // Release implicit pointer capture so the click falls through to the iframe
+          ov.releasePointerCapture(e.pointerId);
           ov.style.pointerEvents = "none";
-          setTimeout(() => { ov.style.pointerEvents = "auto"; }, 300);
+          // Restore tracking on the next frame after the gesture completes
+          window.addEventListener("pointerup", () => {
+            requestAnimationFrame(() => { ov.style.pointerEvents = "auto"; });
+          }, { once: true });
         });
         parent.appendChild(ov);
         overlays.push(ov);
